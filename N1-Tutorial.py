@@ -21,3 +21,12 @@ sim = flopy.mf6.MFSimulation(
 tdis = flopy.mf6.ModflowTdis(
     sim, pname="tdis", time_units="DAYS", nper=1, perioddata=[(1.0, 1, 1.0)]
 )
+
+#Crea el IMS objeto Flopy
+ims = flopy.mf6.ModflowIms(sim, pname="ims", complexity="SIMPLE")
+
+#Crear el objeto de modelo de flujo de agua subterránea Flopy (gwf)
+model_nam_file = "{}.nam".format(name)
+gwf = flopy.mf6.ModflowGwf(sim, modelname=name, model_nam_file=model_nam_file)
+
+
