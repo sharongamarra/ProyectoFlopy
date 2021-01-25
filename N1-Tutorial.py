@@ -14,7 +14,7 @@ H = 50.0
 k = 1.0
 #Crear objeto de simulación (busca la carpeta especializada para guardar los archivos)
 sim = flopy.mf6.MFSimulation(
-    sim_name=name, exe_name="C:\12-DIPLOMADO\Programas\mf6.2.0\bin", version="mf6", sim_ws="workspace"
+    sim_name=name, exe_name="C:/12-DIPLOMADO/Programas/mf6.2.0/bin/mf6", version="mf6", sim_ws="workspace"
 )
 
 #Crea el TDIS objeto Flopy
@@ -72,3 +72,25 @@ iper = 0
 ra = chd.stress_period_data.get_data(key=iper)
 ra
 
+# Create the output control (`OC`) Package
+headfile = "{}.hds".format(name)
+head_filerecord = [headfile]
+budgetfile = "{}.cbb".format(name)
+budget_filerecord = [budgetfile]
+saverecord = [("HEAD", "ALL"), ("BUDGET", "ALL")]
+printrecord = [("HEAD", "LAST")]
+oc = flopy.mf6.ModflowGwfoc(
+    gwf,
+    saverecord=saverecord,
+    head_filerecord=head_filerecord,
+    budget_filerecord=budget_filerecord,
+    printrecord=printrecord,
+)
+#Contruir archivos de texto
+sim.write_simulation()
+
+#Condición de éxito 
+success, buff = sim.run_simulation()
+if not success:
+    raise Exception("MODFLOW 6 did not terminate normally.")
+    
