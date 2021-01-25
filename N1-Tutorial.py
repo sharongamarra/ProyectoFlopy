@@ -29,4 +29,17 @@ ims = flopy.mf6.ModflowIms(sim, pname="ims", complexity="SIMPLE")
 model_nam_file = "{}.nam".format(name)
 gwf = flopy.mf6.ModflowGwf(sim, modelname=name, model_nam_file=model_nam_file)
 
+#Crear el paquete de discretización
+bot = np.linspace(-H / Nlay, -H, Nlay)
+delrow = delcol = L / (N - 1)
+dis = flopy.mf6.ModflowGwfdis(
+    gwf,
+    nlay=Nlay,
+    nrow=N,
+    ncol=N,
+    delr=delrow,
+    delc=delcol,
+    top=0.0,
+    botm=bot,
+)
 
