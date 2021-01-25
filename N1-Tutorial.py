@@ -43,3 +43,8 @@ dis = flopy.mf6.ModflowGwfdis(
     botm=bot,
 )
 
+#Crear el IC paquete de condiciones iniciales
+start = h1 * np.ones((Nlay, N, N))
+ic = flopy.mf6.ModflowGwfic(gwf, pname="ic", strt=start)
+
+#
