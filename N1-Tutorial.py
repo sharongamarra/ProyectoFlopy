@@ -47,4 +47,6 @@ dis = flopy.mf6.ModflowGwfdis(
 start = h1 * np.ones((Nlay, N, N))
 ic = flopy.mf6.ModflowGwfic(gwf, pname="ic", strt=start)
 
-#
+#Crear el NPF paquete de flujo
+npf = flopy.mf6.ModflowGwfnpf(gwf, icelltype=1, k=k, save_flows=True)
+
