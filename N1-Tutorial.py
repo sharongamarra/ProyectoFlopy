@@ -66,3 +66,9 @@ chd = flopy.mf6.ModflowGwfchd(
     stress_period_data=chd_rec,
     save_flows=True,
 )
+
+#Primer periodo de stress
+iper = 0
+ra = chd.stress_period_data.get_data(key=iper)
+ra
+
